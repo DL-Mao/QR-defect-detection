@@ -17,6 +17,7 @@
 - torchvision==
 - numpy==
 - opencv-python==
+
 (The above environment configuration is not the optimal result, other environments versions might work too.)
 
 

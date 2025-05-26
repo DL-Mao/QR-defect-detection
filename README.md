@@ -1,9 +1,10 @@
 # paper information
 
+**_Alightweight model for label printing defect recognition._**
+
 
 ![](images/figure1.png)
 
-**_Alightweight model for label printing defect recognition._**
 
 # Get Started 
 

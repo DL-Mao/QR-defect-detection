@@ -1,4 +1,8 @@
 # paper information
+
+
+![](images/figure1.png)
+
 **_Alightweight model for label printing defect recognition._**
 
 # DAGM2007*

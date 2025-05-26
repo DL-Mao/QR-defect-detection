@@ -13,10 +13,16 @@
 **Python=3.8**
 
 **Packages**:
-- torch==
-- torchvision==
-- numpy==
-- opencv-python==
+- torch==1.8.1+culll
+- torchaudio==0.8.1
+- torchvision==0.9.1+culll
+- numpy==1.19.2
+- opencv-python==3.4.0.12
+- pandas==1.1.5
+- Pillow==8.4.0
+- scipy==1.4.1
+- pytz==2024.2
+- PyYAML==6.0.1
 
 (The above environment configuration is not the optimal result, other environments versions might work too.)
 

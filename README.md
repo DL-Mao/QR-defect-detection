@@ -27,8 +27,8 @@
 (The above environment configuration is not the optimal result, other environments versions might work too.)
 
 
-## datasets(DAGM2007*)
-The link to the reconstructed DAGM2007 dataset is as follows: [DAGM2007*](https://www.kaggle.com/datasets/amor000/reconstructed-dagm2007-dataset).
+## datasets
+The link to the reconstructed DAGM2007* dataset is as follows: [DAGM2007*](https://www.kaggle.com/datasets/amor000/reconstructed-dagm2007-dataset).
 
 ## Run
 
@@ -39,4 +39,4 @@ python tools/train.py config/tinyvit.py
 
 ## Acknowledgement
 
-Thank for great inspiration from [PatchCore]()
+Thank for great inspiration from [PatchCore](https://github.com/Fafa-DL/Awesome-Backbones)

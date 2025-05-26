@@ -26,7 +26,10 @@ The link to the reconstructed DAGM2007 dataset is as follows: [DAGM2007*](https:
 
 ## Run
 
-Please specity dataset path and log foder before running.
+Please specity dataset path and log foder before running. Please execute the following command to start the training:
+```
+python tools/train.py config/tinyvit.py
+```
 
 ## Acknowledgement
 

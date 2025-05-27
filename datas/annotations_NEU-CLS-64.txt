@@ -1,0 +1,9 @@
+cr 0
+gg 1
+in 2
+pa 3
+ps 4
+rp 5
+rs 6
+sc 7
+sp 8

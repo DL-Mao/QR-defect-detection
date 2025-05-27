@@ -1,0 +1,10 @@
+ACode 0
+ACodeFault 1
+Code 2
+CodeFault 3
+EAN 4
+EANFault 5
+QRFault 6
+QR 7
+UPCA 8
+UPCAFault 9

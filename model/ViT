@@ -1,1 +1,106 @@
+# model settings
 
+model_cfg = dict(
+    backbone=dict(
+        type='TinyViT',
+        arch='5m',
+        img_size=(224, 224),
+        window_size=[7, 7, 14, 7],
+        out_indices=(3, ),
+        drop_path_rate=0.16,
+        gap_before_final_norm=True,
+        init_cfg=[
+            dict(
+                type='TruncNormal',
+                layer=['Conv2d', 'Linear'],
+                std=.02,
+                bias=0.),
+            dict(type='Constant', layer=['LayerNorm'], val=1., bias=0.),
+        ]),
+    head=dict(
+        type='LinearClsHead',
+        num_classes=10,
+        in_channels=320,
+        loss=dict(type='CrossEntropyLoss', loss_weight=1.0),
+    ))
+
+# dataloader pipeline
+img_norm_cfg = dict(
+    mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='RandomResizedCrop', size=224, backend='pillow'),
+    dict(type='RandomFlip', flip_prob=0.5, direction='horizontal'),
+    dict(type='Normalize', **img_norm_cfg),
+    dict(type='ImageToTensor', keys=['img']),
+    dict(type='ToTensor', keys=['gt_label']),
+    dict(type='Collect', keys=['img', 'gt_label']),
+]
+
+
+
+# train_pipeline = [
+#     dict(type='LoadImageFromFile'),
+#     dict(type='RandomResizedCrop', size=224, backend='pillow'),
+#     dict(type='RandomFlip', flip_prob=0.5, direction='horizontal'),
+#     dict(type='ColorJitter', brightness=0.4, contrast=0.4, saturation=0.4),  # 添加颜色抖动
+#     dict(type='Lighting', eigval=[0.2175, 0.0188, 0.0045], eigvec=[[0.4009, 0.7192, -0.5675], [-0.8140, -0.0045, -0.5803], [0.4203, -0.6948, -0.5836]], alphastd=0.1),  # 添加光照调整
+#     dict(type='Normalize', **img_norm_cfg),
+#     dict(type='ImageToTensor', keys=['img']),
+#     dict(type='ToTensor', keys=['gt_label']),
+#     dict(type='Collect', keys=['img', 'gt_label'])
+# ]
+
+val_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='Resize', size=(256, -1), backend='pillow'),
+    dict(type='CenterCrop', crop_size=224),
+    dict(type='Normalize', **img_norm_cfg),
+    dict(type='ImageToTensor', keys=['img']),
+    dict(type='Collect', keys=['img'])
+]
+
+# train
+data_cfg = dict(
+    batch_size = 16,
+    num_workers = 4,
+    train = dict(
+        pretrained_flag = False,
+        pretrained_weights = '',# 官方提供的预训练模型不匹配
+        freeze_flag = False,
+        freeze_layers = ('backbone',),
+        epoches = 300,
+        optimizer_config=dict(grad_clip=dict(max_norm=1.0, norm_type=2)),
+    ),
+    test=dict(
+        ckpt = '',
+        metrics = ['accuracy', 'precision', 'recall', 'f1_score', 'confusion'],
+        metric_options = dict(
+            topk = (1,5),
+            thrs = None,
+            average_mode='none'
+    )
+    )
+)
+
+# batch 32
+# lr = 5e-4 * 32 / 512
+# optimizer
+optimizer_cfg = dict(
+    type='AdamW',
+    lr=5e-4 * 16 / 64,  # 5e-4 * 32 / 64
+    weight_decay=0.05,
+    eps=1e-8,
+    betas=(0.9, 0.999),)
+
+# learning
+lr_config = dict(
+    type='CosineAnnealingLrUpdater',
+    by_epoch=False,
+    min_lr_ratio=1e-3,
+    warmup='linear',
+    warmup_ratio=1e-2,
+    warmup_iters=5,
+    warmup_by_epoch=True
+)

@@ -1,4 +1,4 @@
-# DHAM-VISUAL: A Hybrid Attention Visualization Method
+# DHAM-Visual: A Hybrid Attention Visualization Method
 
 
 ## 🌟 特性
@@ -17,7 +17,7 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/yourusername/DHAM-ViT.git
+git clone https://github.com/yourusername/DHAM-Visual.git
 cd DHAM-ViT
 ```
 
